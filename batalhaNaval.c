@@ -1,40 +1,94 @@
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
-
+// Inicio do codigo, função do tabuleiro naval
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
+    char linha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+    int Tabuleiro[10][10];
 
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+// Inicializa o tabuleiro com (zeros = agua)
 
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+    for (int Numero1 = 0; Numero1 < 10; Numero1++) {
+        for (int Numero2 = 0; Numero2 < 10; Numero2++) {
+            Tabuleiro[Numero1][Numero2] = 0;
+        }
+    }
 
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
+// Coloca o tamanho do navio no tabuleiro
 
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
+    int NavioHorizontal[3] = {3, 3, 3};
+    int NavioVertical[3] = {3, 3, 3};
 
+// Define a posição do navio no tabuleiro
+
+    int linhaX = 3, colunaX = 7;
+    int LinhaY = 6, colunaY = 3;
+
+// Coloca o navio horizontal no tabuleiro
+
+    if (linhaX >= 0 && linhaX < 10 && colunaX >= 0 && colunaX + 2 < 10) {
+        int sobreposicao = 0;
+        for (int i = 0; i < 3; i++) {
+            if (Tabuleiro[linhaX][colunaX + i] != 0) {
+                sobreposicao = 1;
+                break;
+            }
+        }
+        if (sobreposicao == 0) {
+            for (int i = 0; i < 3; i++) {
+                Tabuleiro[linhaX][colunaX + i] = NavioHorizontal[i];
+            }
+        } else {
+            printf("Erro: Sobreposição de navios na posição horizontal.\n"); // mensagem de erro
+            return 1;
+        }
+    } else {
+        printf("Erro: Posição do navio horizontal fora dos limites do tabuleiro.\n"); // mensagem de erro
+        return 1;
+    }
+
+// Coloca o navio vertical no tabuleiro
+
+    if (LinhaY >= 0 && LinhaY + 2 < 10 && colunaY >= 0 && colunaY < 10) {
+        int sobreposicao = 0;
+        for (int i = 0; i < 3; i++) {
+            if (Tabuleiro[LinhaY + i][colunaY] != 0) {
+                sobreposicao = 1;
+                break;
+            }
+        }
+        if (sobreposicao == 0) {
+            for (int i = 0; i < 3; i++) {
+                Tabuleiro[LinhaY + i][colunaY] = NavioVertical[i];
+            }
+        } else {
+            printf("Erro: Sobreposição de navios na posição vertical.\n"); // mensagem de erro
+            return 1;
+        }
+    } else {
+        printf("Erro: Posição do navio vertical fora dos limites do tabuleiro.\n"); // mensagem de erro
+        return 1;
+    }
+// imprime as Letras no tabuleiro
+
+    printf("  ");
+    for (int c = 0; c < 10; c++) {
+        printf(" %c ", linha[c]);
+    }
+    printf("\n");
+// imprime os numeros no tabuleiro
+    for (int Numero1 = 0; Numero1 < 10; Numero1++) {
+        int Numero2 = Numero1 + 1;
+
+        if (Numero2 < 10) {
+            printf("%d ", Numero2);
+        } else {
+            printf("%d", Numero2);
+        }
+        for (int Numero3 = 0; Numero3 < 10; Numero3++) {
+            printf(" %d ", Tabuleiro[Numero1][Numero3]);
+        }
+        printf("\n");
+    }
     return 0;
 }
+
