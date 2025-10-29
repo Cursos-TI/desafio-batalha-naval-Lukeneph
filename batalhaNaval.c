@@ -15,27 +15,33 @@ int main() {
 
 // Coloca o tamanho do navio no tabuleiro
 
-    int NavioHorizontal[3] = {3, 3, 3};
-    int NavioVertical[3] = {3, 3, 3};
+    int Navio[3] = {3, 3, 3};
 
 // Define a posição do navio no tabuleiro
+// No Tabuleiro e de 0 a 9, onde 0 é a primeira linha/coluna e 9 a ultima linha/coluna
+// Masmostra 1 a 10 para o usuario por questão de visualização
 
-    int linhaX = 3, colunaX = 7;
-    int LinhaY = 6, colunaY = 3;
+    int linhaX1 = 5, colunaX1 = 7;
 
-// Coloca o navio horizontal no tabuleiro
+    int linhaY2 = 7, colunaY2 = 5;
 
-    if (linhaX >= 0 && linhaX < 10 && colunaX >= 0 && colunaX + 2 < 10) {
+    int linhaX3 = 1, colunaX3 = 2;
+
+    int linhaY4 = 2, colunaY4 = 7;
+
+// Coloca o navio 1 horizontal no tabuleiro
+
+    if (linhaX1 >= 0 && linhaX1 < 10 && colunaX1 >= 0 && colunaX1 + 2 < 10) {
         int sobreposicao = 0;
         for (int i = 0; i < 3; i++) {
-            if (Tabuleiro[linhaX][colunaX + i] != 0) {
+            if (Tabuleiro[linhaX1][colunaX1 + i] != 0) {
                 sobreposicao = 1;
                 break;
             }
         }
         if (sobreposicao == 0) {
             for (int i = 0; i < 3; i++) {
-                Tabuleiro[linhaX][colunaX + i] = NavioHorizontal[i];
+                Tabuleiro[linhaX1][colunaX1 + i] = Navio[i];
             }
         } else {
             printf("Erro: Sobreposição de navios na posição horizontal.\n"); // mensagem de erro
@@ -48,17 +54,17 @@ int main() {
 
 // Coloca o navio vertical no tabuleiro
 
-    if (LinhaY >= 0 && LinhaY + 2 < 10 && colunaY >= 0 && colunaY < 10) {
+    if (linhaY2 >= 0 && linhaY2 + 2 < 10 && colunaY2 >= 0 && colunaY2 < 10) {
         int sobreposicao = 0;
         for (int i = 0; i < 3; i++) {
-            if (Tabuleiro[LinhaY + i][colunaY] != 0) {
+            if (Tabuleiro[linhaY2 + i][colunaY2] != 0) {
                 sobreposicao = 1;
                 break;
             }
         }
         if (sobreposicao == 0) {
             for (int i = 0; i < 3; i++) {
-                Tabuleiro[LinhaY + i][colunaY] = NavioVertical[i];
+                Tabuleiro[linhaY2 + i][colunaY2] = Navio[i];
             }
         } else {
             printf("Erro: Sobreposição de navios na posição vertical.\n"); // mensagem de erro
@@ -68,6 +74,53 @@ int main() {
         printf("Erro: Posição do navio vertical fora dos limites do tabuleiro.\n"); // mensagem de erro
         return 1;
     }
+
+// Coloca navio 3 diagonal no tabuleiro
+
+    if (linhaX3 >= 0 && linhaX3 + 2 < 10 && colunaX3 >= 0 && colunaX3 + 2 < 10) {
+        int sobreposicao = 0;
+        for (int i = 0; i < 3; i++) {
+            if (Tabuleiro[linhaX3 + i][colunaX3 + i] != 0) {
+                sobreposicao = 1;
+                break;
+            }
+        }
+        if (sobreposicao == 0) {
+            for (int i = 0; i < 3; i++) {
+                Tabuleiro[linhaX3 + i][colunaX3 + i] = Navio[i];
+            }
+        } else {
+            printf("Erro: Sobreposição de navios na posição diagonal.\n"); // mensagem de erro
+            return 1;
+        }
+    } else {
+        printf("Erro: Posição do navio diagonal fora dos limites do tabuleiro.\n"); // mensagem de erro
+        return 1;
+    }
+
+// Coloca navio 4 diagonal invertido no tabuleiro
+
+    if (linhaY4 - 2 >= 0 && linhaY4 < 10 && colunaY4 >= 0 && colunaY4 + 2 < 10) {
+        int sobreposicao = 0;
+        for (int i = 0; i < 3; i++) {
+            if (Tabuleiro[linhaY4 - i][colunaY4 + i] != 0) {
+                sobreposicao = 1;
+                break;
+            }
+        }
+        if (sobreposicao == 0) {
+            for (int i = 0; i < 3; i++) {
+                Tabuleiro[linhaY4 - i][colunaY4 + i] = Navio[i];
+            }
+        } else {
+            printf("Erro: Sobreposição de navios na posição diagonal invertida.\n"); // mensagem de erro
+            return 1;
+        }
+    } else {
+        printf("Erro: Posição do navio diagonal invertida fora dos limites do tabuleiro.\n"); // mensagem de erro
+        return 1;
+    }
+
 // imprime as Letras no tabuleiro
 
     printf("  ");
@@ -91,4 +144,3 @@ int main() {
     }
     return 0;
 }
-
